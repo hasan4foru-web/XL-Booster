@@ -10,6 +10,15 @@ uploaded_file = st.sidebar.file_uploader("Excel file upload karein", type=["xlsx
 if uploaded_file:
     df = pd.read_excel(uploaded_file)
     st.success("File Uploaded!")
+     st.divider()
+        m1, m2 = st.columns(2)
+        with m1:
+            st.metric("Total Records", f"{len(df)}")
+        with m2:
+            if 'val_select' in locals():
+                total_sum = df[val_select].sum()
+                st.metric(f"Total {val_select}", f"{total_sum:,.2f}")
+        st.divider()
     
     all_cols = df.columns.tolist()
     num_cols = df.select_dtypes(include=['number']).columns.tolist()
